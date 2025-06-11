@@ -1,14 +1,14 @@
-# Tutorial On Text-Pre-Processing
+# Method On Text-Pre-Processing
 ## Learning Objective 
-The objective of this tutorial is to provide a comprehensive introduction to text pre-processing techniques using Python and spaCy. You will learn how to implement essential text cleaning and preparation functions including tokenization, stopword removal, lemmatization, and sentence splitting. By the end of this tutorial, you will be able to build a complete text pre-processing pipeline suitable for natural language processing tasks and social science research applications.
+The objective of this method is to provide a comprehensive introduction to text pre-processing techniques using Python and spaCy. You will learn how to implement essential text cleaning and preparation functions including tokenization, stopword removal, lemmatization, and sentence splitting. By the end of this Method, you will be able to build a complete text pre-processing pipeline suitable for natural language processing tasks and social science research applications.
 
-## How This Tutorial Benefits Social Scientists
+## How This Method Benefits Social Scientists
 
 1. **Survey Response Analysis:** Social scientists can preprocess open-ended survey responses to clean and standardize text, making it easier to identify common themes and perform quantitative text analysis.
 
 2. **Interview Transcript Preparation:** By removing stopwords and lemmatizing words in interview transcripts, researchers can focus on the core content, facilitating qualitative coding and thematic analysis.
 
-3. **Social Media Data Mining:** The tutorial's techniques help in cleaning and structuring social media posts, enabling sentiment analysis, topic modeling, and trend detection in large-scale digital communication datasets.
+3. **Social Media Data Mining:** The Method's techniques help in cleaning and structuring social media posts, enabling sentiment analysis, topic modeling, and trend detection in large-scale digital communication datasets.
 
 #### Duration
 30 mins
@@ -117,4 +117,4 @@ The repository contains one python script with text pre-processing functions.
 Furthermore, it contains one notebook file which displays test usages of th available functions.
 
 ## Conclusion
-This tutorial has introduced essential text pre-processing techniques using Python and spaCy, providing practical tools for cleaning, tokenizing, lemmatizing, splitting text data and much more. By applying these methods, social scientists and researchers can efficiently prepare textual datasets for analysis, ensuring more accurate and meaningful results in their studies. The modular functions and examples provided serve as a foundation for building robust NLP pipelines tailored to diverse research needs.
+This Method has introduced essential text pre-processing techniques using Python and spaCy, providing practical tools for cleaning, tokenizing, lemmatizing, splitting text data and much more. By applying these methods, social scientists and researchers can efficiently prepare textual datasets for analysis, ensuring more accurate and meaningful results in their studies. The modular functions and examples provided serve as a foundation for building robust NLP pipelines tailored to diverse research needs.
