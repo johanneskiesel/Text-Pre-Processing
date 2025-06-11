@@ -10,7 +10,8 @@ The objective of this tutorial is to provide a comprehensive introduction to tex
 
 3. **Social Media Data Mining:** The tutorial's techniques help in cleaning and structuring social media posts, enabling sentiment analysis, topic modeling, and trend detection in large-scale digital communication datasets.
 
-
+#### Duration
+30 mins
 
 ## Environment Setup Guide
 
@@ -114,3 +115,6 @@ This method operates on any text corpus, make sure to load a spacy model that fi
 ## Repo Structure
 The repository contains one python script with text pre-processing functions.
 Furthermore, it contains one notebook file which displays test usages of th available functions.
+
+## Conclusion
+This tutorial has introduced essential text pre-processing techniques using Python and spaCy, providing practical tools for cleaning, tokenizing, lemmatizing, splitting text data and much more. By applying these methods, social scientists and researchers can efficiently prepare textual datasets for analysis, ensuring more accurate and meaningful results in their studies. The modular functions and examples provided serve as a foundation for building robust NLP pipelines tailored to diverse research needs.
