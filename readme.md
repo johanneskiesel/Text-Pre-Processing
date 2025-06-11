@@ -1,5 +1,19 @@
-## Environment Setup
+# Tutorial On Text-Pre-Processing
+\
+## Learning Objective 
+The objective of this tutorial is to provide a comprehensive introduction to text pre-processing techniques using Python and spaCy. You will learn how to implement essential text cleaning and preparation functions including tokenization, stopword removal, lemmatization, and sentence splitting. By the end of this tutorial, you will be able to build a complete text pre-processing pipeline suitable for natural language processing tasks and social science research applications.
 
+## How This Tutorial Benefits Social Scientists
+
+1. **Survey Response Analysis:** Social scientists can preprocess open-ended survey responses to clean and standardize text, making it easier to identify common themes and perform quantitative text analysis.
+
+2. **Interview Transcript Preparation:** By removing stopwords and lemmatizing words in interview transcripts, researchers can focus on the core content, facilitating qualitative coding and thematic analysis.
+
+3. **Social Media Data Mining:** The tutorial's techniques help in cleaning and structuring social media posts, enabling sentiment analysis, topic modeling, and trend detection in large-scale digital communication datasets.
+
+
+
+## Environment Setup Guide
 
 1. Install the required dependencies:
 
