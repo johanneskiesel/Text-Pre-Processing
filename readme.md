@@ -1,5 +1,4 @@
 # Tutorial On Text-Pre-Processing
-\
 ## Learning Objective 
 The objective of this tutorial is to provide a comprehensive introduction to text pre-processing techniques using Python and spaCy. You will learn how to implement essential text cleaning and preparation functions including tokenization, stopword removal, lemmatization, and sentence splitting. By the end of this tutorial, you will be able to build a complete text pre-processing pipeline suitable for natural language processing tasks and social science research applications.
 
