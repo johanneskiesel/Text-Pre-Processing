@@ -1,8 +1,9 @@
-# Method On Text-Pre-Processing
-## Learning Objective 
-The objective of this method is to provide a comprehensive introduction to text pre-processing techniques using Python and spaCy. You will learn how to implement essential text cleaning and preparation functions including tokenization, stopword removal, lemmatization, and sentence splitting. By the end of this Method, you will be able to build a complete text pre-processing pipeline suitable for natural language processing tasks and social science research applications.
+# Text Preprocessing
 
-## How This Method Benefits Social Scientists
+## Description
+The method performs necessary text preprocessing functions that are necessary before using the data for a downstream task. The method offer multiple preprocessing functions i.e., text tokenization, text lemmatization, remove stopwords, and document documents into sentences 
+
+## Use Cases
 
 1. **Survey Response Analysis:** Social scientists can preprocess open-ended survey responses to clean and standardize text, making it easier to identify common themes and perform quantitative text analysis.
 
@@ -10,36 +11,22 @@ The objective of this method is to provide a comprehensive introduction to text 
 
 3. **Social Media Data Mining:** The Method's techniques help in cleaning and structuring social media posts, enabling sentiment analysis, topic modeling, and trend detection in large-scale digital communication datasets.
 
-#### Duration
-30 mins
+## Input Data
+This method operates on any text corpus of textual data. Please make sure to load a spacy model that fits your language.
 
-## Environment Setup Guide
+## Output Data
+Preprocessed textual data
+
+## Hardware Requirements
+The method runs on a cheap virtual machine provided by cloud computing company (2 x86 CPU core, 4 GB RAM, 40GB HDD).
+
+## Environment Setup
 
 1. Install the required dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
-
-
-## Social Science Use Case
-
-Text pre-processing is a foundational step in social science research involving textual data. For example, researchers analyzing survey responses, interview transcripts, or social media posts can use these functions to:
-
-- Clean and standardize text data for qualitative analysis.
-- Tokenize and lemmatize responses to identify common themes or topics.
-- Remove stopwords to focus on meaningful content.
-- Split large documents into sentences for sentiment or discourse analysis.
-
-By streamlining text preparation, these tools enable social scientists to extract insights from unstructured data more efficiently and accurately.
-
-## Input/Output Specification
-### Input Dataset/Corpus (if applicable): 
-This method operates on any text corpus, make sure to load a spacy model that fits your language.
-
-## Repo Structure
-The repository contains one python script with text pre-processing functions.
-Furthermore, it contains one notebook file which displays test usages of th available functions.
 
 ## How to use
 
@@ -58,9 +45,9 @@ Import the functions
 from pre_processing import *
 ```
 
-### Function Details
+## Technical Details
 
-#### 1. `choose_spacy_model(language)`
+1. `choose_spacy_model(language)`
 
 This function simplifies choosing the appropriate spaCy language model based on the input language code.
 
@@ -68,7 +55,7 @@ This function simplifies choosing the appropriate spaCy language model based on 
 model = choose_spacy_model('en')  # Choose spaCy English model
 ```
 
-#### 2. `tokenize_text(text)`
+2. `tokenize_text(text)`
 
 Tokenizes the input text using spaCy.
 This function provides a list of tokens.
@@ -80,7 +67,7 @@ print(tokens)
 # Output: ['This', 'is', 'a', 'sample', 'text', '.']
 ```
 
-#### 3. `remove_stopwords(text)`
+3. `remove_stopwords(text)`
 
 Removes stopwords from the input text using spaCy, returning a list of tokens without stopwords.
 
@@ -91,7 +78,7 @@ print(filtered_tokens)
 # Output: ['Remove', 'stopwords', 'text', '.']
 ```
 
-#### 4. `lemmatize_text(text)`
+4. `lemmatize_text(text)`
 
 Lemmatizes the input text using spaCy, providing a list of lemmatized tokens.
 
@@ -103,7 +90,7 @@ print(lemmatized_tokens)
 ```
 
 
-#### 5. `split_sentences(text)`
+5. `split_sentences(text)`
 
 Split the input text in its sentences using spaCy.
 
@@ -114,5 +101,7 @@ print(list_of_sentences)
 # Output: ['This is a sample text.', 'Remove these stopwords from the text.', 'Lemmatize this text.']
 ```
 
-## Conclusion
 This Method has introduced essential text pre-processing techniques using Python and spaCy, providing practical tools for cleaning, tokenizing, lemmatizing, splitting text data and much more. By applying these methods, social scientists and researchers can efficiently prepare textual datasets for analysis, ensuring more accurate and meaningful results in their studies. The modular functions and examples provided serve as a foundation for building robust NLP pipelines tailored to diverse research needs.
+
+## Contact Details
+[Stephan.Linzbach@gesis.org](mailto:Stephan.Linzbach@gesis.org)
