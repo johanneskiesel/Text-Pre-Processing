@@ -11,6 +11,28 @@ The method performs necessary text preprocessing functions that are necessary be
 
 - **Social Media Data Mining:** The Method's techniques help in cleaning and structuring social media posts, enabling sentiment analysis, topic modeling, and trend detection in large-scale digital communication datasets.
 
+
+## Environment Setup
+
+1. **Install Python**  
+   Make sure you have Python 3.10 or higher. Download it from [python.org](https://www.python.org/downloads/).
+
+2. **Install Required Packages**  
+   Install all dependencies using the requirements file:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Download spaCy Language Model**  
+   For English, run the following command in your terminal:
+   ```bash
+   python -m spacy download en_core_web_sm
+   ```
+   *Tip: Replace `en_core_web_sm` with the appropriate model for your language if needed.*
+
+4. **Ready to Go!**  
+   You can now open `pre-processing.ipynb` and start exploring the text pre-processing
+
 ## Input Data
 
 1. This function simplifies choosing the appropriate spaCy language model based on the input language code.
@@ -60,40 +82,54 @@ print(list_of_sentences)
 *Note:* Please explore ```pre_processing.ipynb``` for more functions.
 
 ## Hardware Requirements
-The method runs on a cheap virtual machine provided by cloud computing company (2 x86 CPU core, 4 GB RAM, 40GB HDD).
+The method runs on a small virtual machine provided by cloud computing company (2 x86 CPU core, 4 GB RAM, 40GB HDD).
 
-## Environment Setup
+## How to Use
 
-1. Please install Python 3.10 or higher if you haven't already. You can download it from [python.org](https://www.python.org/downloads/).
+The recommended way to explore and use text pre-processing functions is through the interactive Jupyter notebook:  
+**Location:** `pre-processing.ipynb`
 
-2. Install the required dependencies:
+- Open the notebook for step-by-step explanations, code examples, and hands-on demonstrations of all techniques.
+- Each section is clearly marked and includes sample code you can run and modify.
 
-```bash
-pip install -r requirements.txt
-```
+For direct integration into your own Python scripts, you can also use the module:  
+**Location:** `pre_processing.py`
 
-3. Download the necessary spaCy language model. For example, for English, you can run:
+- Import functions as needed:  
+  ```python
+  from pre_processing import *
+  ```
 
-```bash
-python -m spacy download en_core_web_sm
-```
+**Tip:** Start with the notebook to understand the workflow, then use the Python file for automation or production tasks.
 
-## How to use
+## Technical Details
 
-To use the provided functions, simply import them into your Python script or Jupyter notebook as shown above. You can chain the functions together for a complete text pre-processing pipeline, for example:
+### Why Text Pre-Processing?
 
-```python
-text = "Text pre-processing is essential for NLP tasks."
-tokens = tokenize_text(text)
-filtered_tokens = remove_stopwords(' '.join(tokens))
-lemmatized_tokens = lemmatize_text(' '.join(filtered_tokens))
-print(lemmatized_tokens)
-```
+Raw text data is often noisy, inconsistent, and difficult to analyze directly. Before applying any Natural Language Processing (NLP) or machine learning techniques, it is essential to clean and standardize the text. Pre-processing helps remove irrelevant information, normalize word forms, and structure the data, making downstream analysis more accurate and meaningful.
 
-Import the functions
-```python
-from pre_processing import *
-```
+### What Problems Are We Solving?
+
+This tutorial addresses common challenges in text analysis, such as:
+- Handling unstructured and messy text from surveys, interviews, or social media.
+- Reducing vocabulary size and improving consistency through lemmatization.
+- Removing stopwords and irrelevant tokens to focus on meaningful content.
+- Segmenting documents into sentences for finer-grained analysis.
+- Extracting entities, keywords, and sentiment for deeper insights.
+
+### How Does the Tutorial Help?
+
+By following the step-by-step notebook, users will learn how to:
+- Set up their environment and load spaCy language models.
+- Apply essential pre-processing functions (tokenization, stopword removal, lemmatization, sentence segmentation).
+- Use advanced techniques like named entity recognition, TF-IDF keyword extraction, sentiment analysis, and vocabulary comparison.
+- Understand the impact of each technique on real-world social science data.
+
+The tutorial is designed for both beginners and experienced researchers, providing clear explanations and practical code examples.
+
+### Access the Tutorial Notebook
+
+For a hands-on walkthrough, please refer to the [Text Pre-Processing Tutorial Notebook](pre-processing.ipynb). This notebook contains detailed explanations, code cells, and examples to help you master text pre-processing for your own
 
 ## Contact Details
 [Stephan.Linzbach@gesis.org](mailto:Stephan.Linzbach@gesis.org)
