@@ -1,7 +1,15 @@
 # Text Preprocessing
 
-## Description
-The method performs necessary text preprocessing functions that are necessary before using the data for a downstream task. The method offer multiple preprocessing functions i.e., text tokenization, text lemmatization, remove stopwords, and document documents into sentences 
+## Learning Objective
+
+This tutorial will teach you the essential techniques for text pre-processing using Python and spaCy, with a focus on practical applications in social science research. You will learn how to clean, structure, and transform raw text data—making it ready for analysis, modeling, and interpretation.
+
+Text pre-processing is a critical first step in any Natural Language Processing (NLP) workflow. By mastering these methods, you will be able to:
+- Remove noise and inconsistencies from textual data
+- Standardize and normalize language for better analysis
+- Extract meaningful information for downstream tasks such as sentiment analysis, topic modeling, and entity recognition
+
+Whether you are working with survey responses, interview transcripts, or social media data, these skills will help you unlock deeper insights and make your research
 
 ## Use Cases
 
@@ -11,6 +19,23 @@ The method performs necessary text preprocessing functions that are necessary be
 
 - **Social Media Data Mining:** The Method's techniques help in cleaning and structuring social media posts, enabling sentiment analysis, topic modeling, and trend detection in large-scale digital communication datasets.
 
+## Target Audience
+
+This project is designed for:
+
+- **Social Scientists and Researchers:**  
+  Who want to analyze qualitative data from surveys, interviews, or media sources using modern NLP techniques.
+
+- **Students and Educators:**  
+  Looking for a practical introduction to text pre-processing and its applications in social science research.
+
+- **Data Analysts and Practitioners:**  
+  Interested in cleaning, structuring, and extracting insights from large volumes of textual data.
+
+- **Anyone New to NLP:**  
+  The step-by-step notebook and clear code examples make it accessible for beginners with basic Python knowledge.
+
+No prior experience with spaCy or advanced machine learning is required. The tutorial guides you through each concept, making it easy to apply these techniques to your own
 
 ## Environment Setup
 
