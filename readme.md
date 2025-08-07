@@ -57,17 +57,25 @@ print(list_of_sentences)
 # Output: ['This is a sample text.', 'Remove these stopwords from the text.', 'Lemmatize this text.']
 ```
 
-*Note:* Please explore ```pre_processing.py``` for more functions.
+*Note:* Please explore ```pre_processing.ipynb``` for more functions.
 
 ## Hardware Requirements
 The method runs on a cheap virtual machine provided by cloud computing company (2 x86 CPU core, 4 GB RAM, 40GB HDD).
 
 ## Environment Setup
 
-1. Install the required dependencies:
+1. Please install Python 3.10 or higher if you haven't already. You can download it from [python.org](https://www.python.org/downloads/).
+
+2. Install the required dependencies:
 
 ```bash
 pip install -r requirements.txt
+```
+
+3. Download the necessary spaCy language model. For example, for English, you can run:
+
+```bash
+python -m spacy download en_core_web_sm
 ```
 
 ## How to use
