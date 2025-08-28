@@ -117,15 +117,15 @@ The recommended way to explore and use text pre-processing functions is through 
 - Open the notebook for step-by-step explanations, code examples, and hands-on demonstrations of all techniques.
 - Each section is clearly marked and includes sample code you can run and modify.
 
-For direct integration into your own Python scripts, you can also use the module:  
+The functions used in the notebook are being imported from the `pre_processing.py` module:  
 **Location:** `pre_processing.py`
 
-- Import functions as needed:  
+- The notebook constitutes of the function in the module:  
   ```python
   from pre_processing import *
   ```
 
-**Tip:** Start with the notebook to understand the workflow, then use the Python file for automation or production tasks.
+**Tip:** Start with the notebook to understand the workflow, simulataneously use the Python file and notebook to have better learning experience.
 
 ## Technical Details
 
