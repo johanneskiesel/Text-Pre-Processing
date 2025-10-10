@@ -1,3 +1,11 @@
-spacy
-scikit-learn
-numpy
+jupyterlab-quarto==0.3.5
+langcodes==3.5.0
+language_data==1.3.0
+matplotlib==3.10.7
+numpy==2.2.6
+scikit-learn==1.7.2
+scipy==1.15.3
+spacy==3.8.7
+spacy-legacy==3.0.12
+spacy-loggers==1.0.5
+tqdm==4.67.1
