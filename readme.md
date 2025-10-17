@@ -1,13 +1,4 @@
-# Text Preprocessing
+# Text Preprocessing Toolkit
 
-  Install all dependencies using the requirements file:
-   ```bash
-   pip install -r requirements.txt
-   ```
+Take the tutorial at the [Methods Hub](https://doi.org/10.71627/Text-Pre-Processing-tutorial).
 
-   ```bash
-   python -m spacy download en_core_web_sm
-   ```
-   *Tip: Replace `en_core_web_sm` with the appropriate model for your language if needed.*
-
-Execute cells of `tutorial.ipynb` 

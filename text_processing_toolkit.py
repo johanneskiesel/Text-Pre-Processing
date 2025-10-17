@@ -1,7 +1,7 @@
 import spacy
 import os
 from sklearn.feature_extraction.text import TfidfVectorizer
-from collections import Counter
+import collections
 
 def choose_spacy_model(language):
     """
@@ -31,48 +31,87 @@ def tokenize(nlp, text):
     Tokenize the input text using spaCy.
 
     Parameters:
+    - nlp: The spaCy instance.
     - text (str): Input text.
 
     Returns:
     - list: List of tokens.
     """
     document = nlp(text)
-    tokens = [token.text for token in document]
+    tokens = [token for token in document]
     return tokens
 
-def tokenize_without_stopwords(nlp, text):
+def get_token_texts(tokens):
     """
-    Remove stopwords from the input text using spaCy.
+    Get the "raw" text of the tokens, removing all metadata.
 
     Parameters:
-    - text (str): Input text.
+    - tokens (list): List of tokens.
+
+    Returns:
+    - list: Tokens as simple text strings.
+    """
+    token_texts = [token.text for token in tokens]
+    return token_texts
+
+def reconstruct_text_from_tokens(tokens):
+    """
+    Recreate the text from the tokens.
+
+    Parameters:
+    - tokens (list): List of tokens.
+
+    Returns:
+    - str: Text as string.
+    """
+    text = "".join([token.text + token.whitespace_ for token in tokens])
+    return text
+
+def remove_stopwords_from_tokens(tokens):
+    """
+    Remove stopwords from spaCy tokens.
+
+    Parameters:
+    - tokens (list): List of tokens.
 
     Returns:
     - list: List of tokens without stopwords.
     """
-    doc = nlp(text)
-    tokens_without_stopwords = [token.text for token in doc if not token.is_stop]
+    tokens_without_stopwords = [token for token in tokens if not token.is_stop]
     return tokens_without_stopwords
 
-def tokenize_and_lemmatize(nlp, text):
+def remove_punctuation_from_tokens(tokens):
     """
-    Lemmatize the input text using spaCy.
+    Remove punctuation from spaCy tokens.
 
     Parameters:
-    - text (str): Input text.
+    - tokens (list): List of tokens.
 
     Returns:
-    - list: List of lemmatized tokens.
+    - list: List of tokens without punctuation.
     """
-    doc = nlp(text)
-    lemmatized_tokens = [token.lemma_ for token in doc]
+    tokens_without_punctuation = [token for token in tokens if not token.is_punct]
+    return tokens_without_punctuation
+
+def lemmatize_tokens(tokens):
+    """
+    Get the lemmas of spaCy tokens.
+
+    Parameters:
+    - tokens (list): List of tokens.
+
+    Returns:
+    - list: List of token lemmas.
+    """
+    lemmatized_tokens = [token.lemma_ for token in tokens]
     return lemmatized_tokens
 
-def split_sentences(nlp, text):
+def split_into_sentences(nlp, text):
     """
     Split the input text in its sentences using spaCy.
 
     Parameters:
+    - nlp: The spaCy instance.
     - text (str): Input text.
 
     Returns:
@@ -80,8 +119,8 @@ def split_sentences(nlp, text):
     """
     doc = nlp(text)
     assert doc.has_annotation("SENT_START")
-    splitted_sentences = [sentence.text for sentence in doc.sents]
-    return splitted_sentences
+    sentences = [sentence.text for sentence in doc.sents]
+    return sentences
 
 def extract_named_entities(nlp, text):
     """
@@ -117,7 +156,7 @@ def extract_named_entities(nlp, text):
         })
     return entities
 
-def extract_keywords_tfidf(nlp, texts, max_features=20, ngram_range=(1, 2)):
+def extract_keywords_tfidf(texts, max_features=20, ngram_range=(1, 2)):
     """
     Extract the most important keywords from a collection of texts using TF-IDF analysis.
     
@@ -130,11 +169,11 @@ def extract_keywords_tfidf(nlp, texts, max_features=20, ngram_range=(1, 2)):
     - texts (list): List of text documents to analyze (e.g., survey responses)
     - max_features (int): Maximum number of top keywords to return (default: 20)
     - ngram_range (tuple): Range of n-grams to consider. (1,1) for single words,
-                            (1,2) for single words and two-word phrases (default: (1,2))
+                           (1,2) for single words and two-word phrases (default: (1,2))
 
     Returns:
-    - list: List of tuples containing (keyword, importance_score)
-            Keywords are sorted by importance (highest first)
+    - list: For each input document a list of tuples containing
+            (keyword, importance_score), sorted by importance (highest first)
     
     Example:
     For analyzing political speeches, this might return:
@@ -145,27 +184,20 @@ def extract_keywords_tfidf(nlp, texts, max_features=20, ngram_range=(1, 2)):
     if len(texts) < 2:
         raise ValueError("TF-IDF analysis requires at least 2 documents for comparison.")
     
-    # Preprocess texts by removing stopwords and lemmatizing
-    processed_texts = []
-    for text in texts:
-        doc = nlp(text)
-        processed_text = ' '.join([token.lemma_.lower() for token in doc 
-                                    if not token.is_stop and not token.is_punct 
-                                    and len(token.text) > 2])
-        processed_texts.append(processed_text)
-    
     vectorizer = TfidfVectorizer(max_features=max_features, ngram_range=ngram_range)
-    tfidf_matrix = vectorizer.fit_transform(processed_texts)
+    tfidf_matrix = vectorizer.fit_transform(texts)
     
     feature_names = vectorizer.get_feature_names_out()
-    mean_scores = [float(number) for number in tfidf_matrix.mean(axis=0).A1]
-
-    keywords_scores = list(zip(feature_names, mean_scores))
-    keywords_scores.sort(key=lambda x: x[1], reverse=True)
+    keywords_per_text = []
+    for tfidf_row in tfidf_matrix:
+        scores = [float(number) for number in tfidf_row.toarray()[0]]
+        keywords_scores = list(zip(feature_names, scores))
+        keywords_scores.sort(key=lambda x: x[1], reverse=True)
+        keywords_per_text.append(keywords_scores)
     
-    return keywords_scores
+    return keywords_per_text
 
-def analyze_sentiment_basic(text):
+def analyze_sentiment_basic(tokens):
     """
     Perform basic sentiment analysis to determine if text expresses positive or negative emotions.
     
@@ -177,7 +209,7 @@ def analyze_sentiment_basic(text):
     any text where emotional tone matters for your research.
 
     Parameters:
-    - text (str): The text to analyze for sentiment
+    - tokens (list): List of tokens.
 
     Returns:
     - dict: Dictionary containing:
@@ -187,7 +219,7 @@ def analyze_sentiment_basic(text):
             - 'score': numerical score (positive = above 0, negative = below 0)
     
     Example:
-    Input: "I love this new policy but I hate the implementation."
+    Input: tokenize(nlp, "I love this new policy but I hate the implementation.")
     Output: {'sentiment': 'neutral', 'positive_words': ['love'], 
                 'negative_words': ['hate'], 'score': 0}
     """
@@ -200,15 +232,13 @@ def analyze_sentiment_basic(text):
                         'sad', 'disappointed', 'frustrated', 'negative', 'problem', 'issue',
                         'difficult', 'hard', 'impossible', 'fail', 'failure', 'worse', 'worst'}
     
-    doc = nlp(text.lower())
-    
     found_positive = []
     found_negative = []
     
-    for token in doc:
-        if token.lemma_ in positive_words:
+    for token in tokens:
+        if token.lemma_.lower() in positive_words:
             found_positive.append(token.text)
-        elif token.lemma_ in negative_words:
+        elif token.lemma_.lower() in negative_words:
             found_negative.append(token.text)
     
     score = len(found_positive) - len(found_negative)
@@ -227,7 +257,7 @@ def analyze_sentiment_basic(text):
         'score': score
     }
 
-def get_text_statistics(text):
+def get_text_statistics(nlp, text):
     """
     Calculate comprehensive statistics about a text document.
     
@@ -237,7 +267,8 @@ def get_text_statistics(text):
     or writers in your research.
 
     Parameters:
-    - text (str): The text to analyze
+    - nlp: The spaCy instance.
+    - text (str): The text to analyze.
 
     Returns:
     - dict: Dictionary containing detailed statistics:
@@ -256,7 +287,7 @@ def get_text_statistics(text):
     - Study vocabulary richness in interview responses across different demographics
     """
     doc = nlp(text)
-    
+
     # Basic counts
     words = [token for token in doc if not token.is_space and not token.is_punct]
     sentences = list(doc.sents)
@@ -295,7 +326,7 @@ def get_text_statistics(text):
         'pos_distribution': pos_distribution
     }
 
-def compare_texts_vocabulary(text1, text2, top_n=10):
+def compare_texts_vocabulary(nlp, text1, text2, top_n=10):
     """
     Compare the vocabulary usage between two texts to identify similarities and differences.
     
@@ -304,6 +335,7 @@ def compare_texts_vocabulary(text1, text2, top_n=10):
     between demographic groups, or studying how language use changes over time.
 
     Parameters:
+    - nlp: The spaCy instance.
     - text1 (str): First text for comparison
     - text2 (str): Second text for comparison  
     - top_n (int): Number of top unique words to return for each text (default: 10)
@@ -331,8 +363,8 @@ def compare_texts_vocabulary(text1, text2, top_n=10):
                 and token.is_alpha and len(token.text) > 2]
     
     # Count word frequencies
-    freq1 = Counter(words1)
-    freq2 = Counter(words2)
+    freq1 = collections.Counter(words1)
+    freq2 = collections.Counter(words2)
     
     # Find common and unique words
     set1 = set(freq1.keys())
@@ -340,7 +372,7 @@ def compare_texts_vocabulary(text1, text2, top_n=10):
     
     common_words = {}
     for word in set1.intersection(set2):
-        common_words[word] = {'text1_freq': freq1[word], 'text2_freq': freq2[word]}
+        common_words[word] = {'text1_frequency': freq1[word], 'text2_frequency': freq2[word]}
     
     unique_to_text1 = {word: freq1[word] for word in set1 - set2}
     unique_to_text2 = {word: freq2[word] for word in set2 - set1}
@@ -359,3 +391,4 @@ def compare_texts_vocabulary(text1, text2, top_n=10):
         'unique_to_text2': unique_to_text2,
         'similarity_score': round(similarity_score, 2)
     }
+

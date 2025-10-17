@@ -1,7 +1,6 @@
 import unittest
 import spacy
-import matplotlib.pyplot as plt
-from pre_processing import *
+from text_processing_toolkit import *
 
 # Assuming the functions from the pre_processing module are imported correctly
 class TestTextProcessingToolkit(unittest.TestCase):
@@ -10,28 +9,28 @@ class TestTextProcessingToolkit(unittest.TestCase):
     def setUp(self):
         self.nlp = spacy.load("en_core_web_sm")
 
-    def test_tokenize_text(self):
-        """Test the tokenize_text function."""
+    def test_tokenize(self):
+        """Test the tokenize function."""
         text = "This is a sample text."
-        tokens = tokenize_text(text)
+        tokens = get_token_texts(tokenize(self.nlp, text))
         self.assertEqual(tokens, ['This', 'is', 'a', 'sample', 'text', '.'])
 
-    def test_remove_stopwords(self):
-        """Test the remove_stopwords function."""
+    def test_remove_stopwords_from_tokens(self):
+        """Test the remove_stopwords_from_tokens function."""
         text = "Remove these stopwords from the text."
-        filtered_tokens = remove_stopwords(text)
+        filtered_tokens = get_token_texts(remove_stopwords_from_tokens(tokenize(self.nlp, text)))
         self.assertEqual(filtered_tokens, ['Remove', 'stopwords', 'text', '.'])
 
-    def test_lemmatize_text(self):
-        """Test the lemmatize_text function."""
-        text = "Lemmatize this text."
-        lemmatized_tokens = lemmatize_text(text)
-        self.assertEqual(lemmatized_tokens, ['lemmatize', 'this', 'text', '.'])
+    def test_lemmatize_tokens(self):
+        """Test the lemmatize_tokens function."""
+        text = "Lemmatize these tokens quickly."
+        lemmatized_tokens = lemmatize_tokens(tokenize(self.nlp, text))
+        self.assertEqual(lemmatized_tokens, ['lemmatize', 'these', 'token', 'quickly', '.'])
     
-    def test_split_sentences(self):
-        """Test the split_sentences function."""
+    def test_split_into_sentences(self):
+        """Test the split_into_sentences function."""
         text = "This is the first sentence. This is the second sentence."
-        sentences = split_sentences(text)
+        sentences = split_into_sentences(self.nlp, text)
         self.assertEqual(len(sentences), 2)
         self.assertIn("This is the first sentence.", sentences)
         self.assertIn("This is the second sentence.", sentences)
@@ -39,13 +38,13 @@ class TestTextProcessingToolkit(unittest.TestCase):
     def test_extract_named_entities(self):
         """Test the extract_named_entities function."""
         text = "Apple Inc. is located in Cupertino, California."
-        entities = extract_named_entities(text)
+        entities = extract_named_entities(self.nlp, text)
         self.assertIsInstance(entities, list)
         self.assertGreater(len(entities), 0)
     
     def test_extract_keywords_tfidf(self):
         """Test the extract_keywords_tfidf function."""
-        texts = ["This is a sample document.", "This is another document.", "Sample text here."]
+        texts = [ "This is a sample document.", "This is another document.", "Sample text here." ]
         keywords = extract_keywords_tfidf(texts, max_features=10)
         self.assertIsInstance(keywords, list)
         self.assertLessEqual(len(keywords), 10)
@@ -56,9 +55,9 @@ class TestTextProcessingToolkit(unittest.TestCase):
         negative_text = "This is terrible."
         neutral_text = "This is a statement."
         
-        pos_sentiment = analyze_sentiment_basic(positive_text)
-        neg_sentiment = analyze_sentiment_basic(negative_text)
-        neutral_sentiment = analyze_sentiment_basic(neutral_text)
+        pos_sentiment = analyze_sentiment_basic(tokenize(self.nlp, positive_text))
+        neg_sentiment = analyze_sentiment_basic(tokenize(self.nlp, negative_text))
+        neutral_sentiment = analyze_sentiment_basic(tokenize(self.nlp, neutral_text))
         
         self.assertIn(pos_sentiment['sentiment'], ['positive', 'negative', 'neutral'])
         self.assertIn(neg_sentiment['sentiment'], ['positive', 'negative', 'neutral'])
@@ -67,7 +66,7 @@ class TestTextProcessingToolkit(unittest.TestCase):
     def test_get_text_statistics(self):
         """Test the get_text_statistics function."""
         text = "This is a sample text with multiple words."
-        stats = get_text_statistics(text)
+        stats = get_text_statistics(self.nlp, text)
         self.assertIsInstance(stats, dict)
         self.assertIn('word_count', stats)
         self.assertIn('character_count', stats)
@@ -79,7 +78,7 @@ class TestTextProcessingToolkit(unittest.TestCase):
         """Test the compare_texts_vocabulary function."""
         text1 = "This is the first text sample."
         text2 = "This is the second text example."
-        comparison = compare_texts_vocabulary(text1, text2)
+        comparison = compare_texts_vocabulary(self.nlp, text1, text2)
         self.assertIsInstance(comparison, dict)
         self.assertIn('common_words', comparison)
         self.assertIn('similarity_score', comparison)
