@@ -1,12 +1,9 @@
-
 import spacy
 import os
-import matplotlib.pyplot as plt
 from sklearn.feature_extraction.text import TfidfVectorizer
 from collections import Counter
 
-
-def get_model(language):
+def choose_spacy_model(language):
     """
     Loads a spaCy language model for the specified language. If the model is not found,
     attempts to download it and then load it.
@@ -28,22 +25,8 @@ def get_model(language):
         except:
             raise ValueError(f"Language '{language}' is not supported.")
         return spacy.load(f"{language}_core_web_sm")
-        
-def choose_spacy_model(language):
-    """
-    Choose the appropriate spaCy language model based on the input language.
 
-    Parameters:
-    - language (str): Language code (e.g., 'en' for English, 'fr' for French, 'de' for German).
-
-    Returns:
-    - spaCy language model
-    """
-    return get_model(language)
-
-nlp = choose_spacy_model("en")  # Default to English model, can be changed as needed
-        
-def tokenize_text(text):
+def tokenize(nlp, text):
     """
     Tokenize the input text using spaCy.
 
@@ -53,11 +36,11 @@ def tokenize_text(text):
     Returns:
     - list: List of tokens.
     """
-    doc = nlp(text)
-    tokens = [token.text for token in doc]
+    document = nlp(text)
+    tokens = [token.text for token in document]
     return tokens
 
-def remove_stopwords(text):
+def tokenize_without_stopwords(nlp, text):
     """
     Remove stopwords from the input text using spaCy.
 
@@ -71,7 +54,7 @@ def remove_stopwords(text):
     tokens_without_stopwords = [token.text for token in doc if not token.is_stop]
     return tokens_without_stopwords
 
-def lemmatize_text(text):
+def tokenize_and_lemmatize(nlp, text):
     """
     Lemmatize the input text using spaCy.
 
@@ -85,7 +68,7 @@ def lemmatize_text(text):
     lemmatized_tokens = [token.lemma_ for token in doc]
     return lemmatized_tokens
 
-def split_sentences(text):
+def split_sentences(nlp, text):
     """
     Split the input text in its sentences using spaCy.
 
@@ -100,7 +83,7 @@ def split_sentences(text):
     splitted_sentences = [sentence.text for sentence in doc.sents]
     return splitted_sentences
 
-def extract_named_entities(text):
+def extract_named_entities(nlp, text):
     """
     Extract named entities (people, organizations, locations, etc.) from text.
     
@@ -134,7 +117,7 @@ def extract_named_entities(text):
         })
     return entities
 
-def extract_keywords_tfidf(texts, max_features=20, ngram_range=(1, 2)):
+def extract_keywords_tfidf(nlp, texts, max_features=20, ngram_range=(1, 2)):
     """
     Extract the most important keywords from a collection of texts using TF-IDF analysis.
     
@@ -175,8 +158,8 @@ def extract_keywords_tfidf(texts, max_features=20, ngram_range=(1, 2)):
     tfidf_matrix = vectorizer.fit_transform(processed_texts)
     
     feature_names = vectorizer.get_feature_names_out()
-    mean_scores = tfidf_matrix.mean(axis=0).A1
-    
+    mean_scores = [float(number) for number in tfidf_matrix.mean(axis=0).A1]
+
     keywords_scores = list(zip(feature_names, mean_scores))
     keywords_scores.sort(key=lambda x: x[1], reverse=True)
     
